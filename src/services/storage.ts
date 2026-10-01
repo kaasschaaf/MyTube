@@ -60,34 +60,7 @@ export function saveStoredChannels(channels: Channel[]): void {
   }
 }
 
-/**
- * Parses Google Takeout subscriptions.csv export.
- * Typical format:
- * Channel Id,Channel Url,Channel Title
- * UC6nSFpj9HTCZ5t-N3Rm3-HA,http://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA,Veritasium
- */
-export function parseYouTubeSubscriptionsCSV(csvContent: string): { id: string; title: string }[] {
-  const lines = csvContent.split(/\r?\n/);
-  const channels: { id: string; title: string }[] = [];
 
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.toLowerCase().startsWith('channel id')) continue;
-
-    // Match CSV columns (handling quotes or plain commas)
-    const parts = trimmed.split(',');
-    if (parts.length >= 3) {
-      const id = parts[0].replace(/"/g, '').trim();
-      const title = parts.slice(2).join(',').replace(/"/g, '').trim();
-
-      if (id.startsWith('UC')) {
-        channels.push({ id, title: title || 'Kanaal' });
-      }
-    }
-  }
-
-  return channels;
-}
 
 /**
  * Exports settings and favorites to a downloadable JSON file.

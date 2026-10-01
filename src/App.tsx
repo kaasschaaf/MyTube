@@ -7,7 +7,7 @@ import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { TimeSliderModal } from './components/TimeSliderModal';
 import { ChannelManagerModal } from './components/ChannelManagerModal';
 import { SettingsModal } from './components/SettingsModal';
-import { ImportOrLoginModal } from './components/ImportOrLoginModal';
+import { GoogleLoginModal } from './components/GoogleLoginModal';
 import { MobileNav } from './components/MobileNav';
 
 import { Channel, Video, FilterState, AppSettings, UserProfile } from './types';
@@ -18,7 +18,6 @@ import {
   exportSettingsToFile,
   importSettingsFromString,
   loadStoredChannels,
-  saveStoredChannels,
 } from './services/storage';
 import {
   initGoogleAuth,
@@ -65,7 +64,7 @@ export const App: React.FC = () => {
   const [isTimeSliderOpen, setIsTimeSliderOpen] = useState(false);
   const [isChannelManagerOpen, setIsChannelManagerOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isImportOrLoginOpen, setIsImportOrLoginOpen] = useState(false);
+  const [isGoogleLoginOpen, setIsGoogleLoginOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<Video | null>(null);
 
   // Synchronize settings changes to localStorage
@@ -88,7 +87,7 @@ export const App: React.FC = () => {
     (explicitClientId?: string) => {
       const effectiveClientId = (explicitClientId || settings.googleClientId || '').trim();
       if (!effectiveClientId) {
-        setIsImportOrLoginOpen(true);
+        setIsGoogleLoginOpen(true);
         return;
       }
 
@@ -125,16 +124,6 @@ export const App: React.FC = () => {
     },
     [settings]
   );
-
-  const handleImportChannels = (imported: Channel[]) => {
-    const mapped = imported.map((c) => ({
-      ...c,
-      isFavorite: settings.favoriteChannelIds.includes(c.id),
-      isMuted: settings.mutedChannelIds.includes(c.id),
-    }));
-    setChannels(mapped);
-    saveStoredChannels(mapped);
-  };
 
   const handleLogout = () => {
     setAccessToken(null);
@@ -430,10 +419,9 @@ export const App: React.FC = () => {
         onImport={handleImportBackup}
       />
 
-      <ImportOrLoginModal
-        isOpen={isImportOrLoginOpen}
-        onClose={() => setIsImportOrLoginOpen(false)}
-        onImportChannels={handleImportChannels}
+      <GoogleLoginModal
+        isOpen={isGoogleLoginOpen}
+        onClose={() => setIsGoogleLoginOpen(false)}
         onGoogleLogin={handleLogin}
         hasGoogleClientId={Boolean(settings.googleClientId)}
         currentClientId={settings.googleClientId}
