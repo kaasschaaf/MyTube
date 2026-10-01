@@ -1,10 +1,14 @@
 import { AppSettings, Channel } from '../types';
+import { HARDCODED_GOOGLE_CLIENT_ID } from '../config';
 
 const STORAGE_KEY = 'mytube_app_settings_v1';
 const CHANNELS_STORAGE_KEY = 'mytube_imported_channels_v1';
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  googleClientId: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
+  googleClientId:
+    HARDCODED_GOOGLE_CLIENT_ID ||
+    import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+    '',
   youtubeApiKey: import.meta.env.VITE_YOUTUBE_API_KEY || '',
   dataSource: 'demo',
   favoriteChannelIds: [
@@ -23,7 +27,8 @@ export function loadSettings(): AppSettings {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return DEFAULT_SETTINGS;
     const parsed = JSON.parse(raw);
-    return { ...DEFAULT_SETTINGS, ...parsed };
+    const googleClientId = parsed.googleClientId || HARDCODED_GOOGLE_CLIENT_ID || '';
+    return { ...DEFAULT_SETTINGS, ...parsed, googleClientId };
   } catch (e) {
     console.error('Failed to load settings from localStorage:', e);
     return DEFAULT_SETTINGS;
