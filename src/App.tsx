@@ -112,14 +112,14 @@ export const App: React.FC = () => {
         },
         (err) => {
           console.error('Google Auth Error:', err);
-          alert(`Google Login mislukt: ${err}`);
+          alert(`Google sign-in failed: ${err}`);
         }
       );
 
       if (triggerAuth) {
         triggerAuth();
       } else {
-        alert('Google Identity Services script is nog aan het laden. Probeer het over enkele seconden opnieuw.');
+        alert('Google Identity Services is still loading. Please try again in a few seconds.');
       }
     },
     [settings]
@@ -156,8 +156,8 @@ export const App: React.FC = () => {
       const videos = await fetchRecentVideosForChannels(mappedSubs, token);
       setRawVideos(videos);
     } catch (e) {
-      console.error('Fout bij ophalen YouTube gegevens:', e);
-      alert('Kon YouTube abonnementen niet ophalen. Controleer of de YouTube Data API v3 is ingeschakeld.');
+      console.error('Failed to fetch YouTube data:', e);
+      alert('Could not fetch YouTube subscriptions. Check that YouTube Data API v3 is enabled.');
     } finally {
       setIsRefreshing(false);
     }
@@ -355,7 +355,7 @@ export const App: React.FC = () => {
           {filters.selectedChannelId && (
             <div className="px-4 py-2 bg-yt-surface/40 flex items-center justify-between text-xs border-b border-yt-border/20">
               <span className="text-yt-textSec">
-                Filter op kanaal:{' '}
+                Channel filter:{' '}
                 <strong className="text-white">
                   {channels.find((c) => c.id === filters.selectedChannelId)?.title}
                 </strong>
@@ -364,7 +364,7 @@ export const App: React.FC = () => {
                 onClick={() => setFilters((prev) => ({ ...prev, selectedChannelId: null }))}
                 className="text-blue-400 hover:underline"
               >
-                Wis filter
+                Clear filter
               </button>
             </div>
           )}

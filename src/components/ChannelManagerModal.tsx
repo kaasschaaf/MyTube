@@ -62,9 +62,9 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
               <Tv className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold">Abonnementen Beheren</h2>
+              <h2 className="text-base font-bold">Manage subscriptions</h2>
               <p className="text-xs text-yt-textSec">
-                Markeer favorieten (⭐) en demp minder leuke kanalen
+                Favorite channels (⭐) or mute channels you don't want to see
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
           <div className="relative">
             <input
               type="text"
-              placeholder="Zoek kanaal op naam..."
+              placeholder="Search channels by name..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-yt-surface border border-yt-border rounded-xl py-2 pl-9 pr-4 text-xs text-yt-text focus:outline-none focus:border-blue-500"
@@ -99,7 +99,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                     : 'bg-yt-pill hover:bg-yt-pillHover text-yt-text'
                 }`}
               >
-                Alles ({channels.length})
+                All ({channels.length})
               </button>
               <button
                 onClick={() => setFilterMode('favorites')}
@@ -110,7 +110,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                 }`}
               >
                 <Star className="w-3.5 h-3.5 fill-current" />
-                <span>Favorieten ({favoritesCount})</span>
+                <span>Favorites ({favoritesCount})</span>
               </button>
               <button
                 onClick={() => setFilterMode('muted')}
@@ -121,7 +121,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                 }`}
               >
                 <VolumeX className="w-3.5 h-3.5" />
-                <span>Gedempt ({mutedCount})</span>
+                <span>Muted ({mutedCount})</span>
               </button>
             </div>
 
@@ -131,7 +131,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                 className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-semibold"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Kanaal toevoegen</span>
+                <span>Add channel</span>
               </button>
             )}
           </div>
@@ -141,7 +141,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
             <form onSubmit={handleAddChannel} className="flex gap-2 pt-2">
               <input
                 type="text"
-                placeholder="Bijv. @veritasium of kanaalnaam"
+                placeholder="e.g. @veritasium or a channel name"
                 value={newChannelName}
                 onChange={(e) => setNewChannelName(e.target.value)}
                 className="flex-1 bg-yt-surface border border-yt-border rounded-lg px-3 py-1.5 text-xs text-yt-text"
@@ -150,7 +150,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                 type="submit"
                 className="px-3 py-1.5 rounded-lg bg-yt-red text-white text-xs font-bold hover:bg-yt-redHover transition flex items-center gap-1"
               >
-                <Check className="w-3.5 h-3.5" /> Toevoegen
+                <Check className="w-3.5 h-3.5" /> Add
               </button>
             </form>
           )}
@@ -160,7 +160,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
           {filteredChannels.length === 0 ? (
             <div className="text-center py-8 text-yt-textSec text-xs">
-              Geen kanalen gevonden in deze categorie.
+              No channels found in this category.
             </div>
           ) : (
             filteredChannels.map((channel) => (
@@ -180,10 +180,10 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                     </h4>
                     <div className="flex items-center gap-2 text-xs text-yt-textSec">
                       {channel.subscriberCount && (
-                        <span>{channel.subscriberCount} abonnees</span>
+                        <span>{channel.subscriberCount} subscribers</span>
                       )}
                       {channel.isMuted && (
-                        <span className="text-red-400 font-semibold">• Gedempt</span>
+                        <span className="text-red-400 font-semibold">• Muted</span>
                       )}
                     </div>
                   </div>
@@ -205,7 +205,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                       }`}
                     />
                     <span className="hidden sm:inline">
-                      {channel.isFavorite ? 'Favoriet' : 'Maak favoriet'}
+                      {channel.isFavorite ? 'Favorite' : 'Add favorite'}
                     </span>
                   </button>
 
@@ -217,7 +217,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
                         ? 'bg-red-500/20 text-red-400 border border-red-500/30'
                         : 'bg-yt-pill hover:bg-yt-pillHover text-yt-textSec hover:text-white'
                     }`}
-                    title={channel.isMuted ? 'Ontdemp dit kanaal' : 'Demp dit kanaal'}
+                    title={channel.isMuted ? 'Unmute this channel' : 'Mute this channel'}
                   >
                     {channel.isMuted ? (
                       <VolumeX className="w-4 h-4" />
@@ -237,7 +237,7 @@ export const ChannelManagerModal: React.FC<ChannelManagerModalProps> = ({
             onClick={onClose}
             className="px-5 py-2 rounded-full bg-yt-pillActive text-black font-bold text-xs hover:bg-white transition"
           >
-            Klaar
+            Done
           </button>
         </div>
       </div>

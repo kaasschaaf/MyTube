@@ -1,13 +1,10 @@
 /**
- * Centrale configuratie voor MyTube.
- * 
- * Een Google OAuth Client ID is een PUBLIEKE identifier (géén geheim wachtwoord).
- * Je kunt hier je eigen Client ID hardcoden zodat de "Inloggen met Google" knop
- * DIRECT het officiële Google inlogvenster opent zonder dat je ooit iets hoeft in te vullen!
- * 
- * Zorg dat in de Google Cloud Console bij "Authorized JavaScript origins" staat:
- * - http://localhost:5173
- * - https://<jouw-gebruikersnaam>.github.io
+ * Central configuration for MyTube.
+ *
+ * A Google OAuth client ID is a public identifier, not a password. You can set
+ * your own client ID here to open Google's sign-in flow without entering it in
+ * the app. Add your local and deployed origins in Google Cloud Console under
+ * "Authorized JavaScript origins".
  */
 export const HARDCODED_GOOGLE_CLIENT_ID = '';
 

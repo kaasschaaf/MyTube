@@ -35,7 +35,7 @@ export function formatDuration(totalSeconds: number): string {
 }
 
 /**
- * Formats an ISO publishedAt date to a friendly relative Dutch string (e.g. "2 uur geleden").
+ * Formats an ISO publication date as a friendly relative time string.
  */
 export function formatRelativeTime(dateString: string): string {
   try {
@@ -49,31 +49,31 @@ export function formatRelativeTime(dateString: string): string {
     const diffWeeks = Math.floor(diffDays / 7);
     const diffMonths = Math.floor(diffDays / 30);
 
-    if (diffMin < 1) return 'Zojuist';
-    if (diffMin < 60) return `${diffMin} ${diffMin === 1 ? 'minuut' : 'minuten'} geleden`;
-    if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? 'uur' : 'uur'} geleden`;
-    if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? 'dag' : 'dagen'} geleden`;
-    if (diffWeeks < 5) return `${diffWeeks} ${diffWeeks === 1 ? 'week' : 'weken'} geleden`;
-    if (diffMonths < 12) return `${diffMonths} ${diffMonths === 1 ? 'maand' : 'maanden'} geleden`;
+    if (diffMin < 1) return 'Just now';
+    if (diffMin < 60) return `${diffMin} ${diffMin === 1 ? 'minute' : 'minutes'} ago`;
+    if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+    if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+    if (diffWeeks < 5) return `${diffWeeks} ${diffWeeks === 1 ? 'week' : 'weeks'} ago`;
+    if (diffMonths < 12) return `${diffMonths} ${diffMonths === 1 ? 'month' : 'months'} ago`;
     const diffYears = Math.floor(diffDays / 365);
-    return `${diffYears} ${diffYears === 1 ? 'jaar' : 'jaar'} geleden`;
+    return `${diffYears} ${diffYears === 1 ? 'year' : 'years'} ago`;
   } catch {
-    return 'Recent';
+    return 'Recently';
   }
 }
 
 /**
- * Formats a raw view count number to Dutch abbreviation (e.g. "1.2M weergaven", "45K weergaven").
+ * Formats a raw view count number with an abbreviated English label.
  */
 export function formatViews(views: number | string): string {
   const num = typeof views === 'string' ? parseInt(views, 10) : views;
-  if (isNaN(num)) return 'Geen weergaven';
+  if (isNaN(num)) return 'No views';
 
   if (num >= 1_000_000) {
-    return `${(num / 1_000_000).toFixed(1).replace('.', ',')}M weergaven`;
+    return `${(num / 1_000_000).toFixed(1)}M views`;
   }
   if (num >= 1_000) {
-    return `${Math.round(num / 1_000)}K weergaven`;
+    return `${Math.round(num / 1_000)}K views`;
   }
-  return `${num} weergaven`;
+  return `${num} views`;
 }

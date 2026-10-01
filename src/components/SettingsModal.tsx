@@ -54,9 +54,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       const content = event.target?.result as string;
       const success = onImport(content);
       if (success) {
-        setImportStatus('✅ Gegevens succesvol geïmporteerd!');
+        setImportStatus('✅ Settings imported successfully!');
       } else {
-        setImportStatus('❌ Ongeldig backupbestand.');
+        setImportStatus('❌ Invalid backup file.');
       }
       setTimeout(() => setImportStatus(null), 3000);
     };
@@ -79,9 +79,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <Settings className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold">Instellingen & Accounts</h2>
+              <h2 className="text-base font-bold">Settings & accounts</h2>
               <p className="text-xs text-yt-textSec">
-                Koppeling met YouTube en gegevensbeheer
+                YouTube connection and data management
               </p>
             </div>
           </div>
@@ -99,7 +99,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <div className="space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-yt-textSec flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              Actieve Gegevensbron
+              Active data source
             </h3>
 
             <div className="grid grid-cols-2 gap-3">
@@ -117,11 +117,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     Demo Feed
                   </div>
                   <p className="text-[11px] text-yt-textSec mt-1">
-                    Direct werkende populaire kanalen (Veritasium, MKBHD, NOS op 3, etc.)
+                    Popular channels ready to explore (Veritasium, MKBHD, NOS op 3, etc.)
                   </p>
                 </div>
                 {dataSource === 'demo' && (
-                  <span className="text-[10px] text-yt-red font-bold mt-2">✓ Actief</span>
+                  <span className="text-[10px] text-yt-red font-bold mt-2">✓ Active</span>
                 )}
               </button>
 
@@ -136,14 +136,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               >
                 <div>
                   <div className="text-xs font-bold text-yt-text flex items-center gap-1.5">
-                    Mijn YouTube Account
+                    My YouTube account
                   </div>
                   <p className="text-[11px] text-yt-textSec mt-1">
-                    Jouw eigen geabonneerde kanalen en actuele uploads
+                    Your subscribed channels and recent uploads
                   </p>
                 </div>
                 {dataSource === 'google' && (
-                  <span className="text-[10px] text-blue-400 font-bold mt-2">✓ Actief</span>
+                  <span className="text-[10px] text-blue-400 font-bold mt-2">✓ Active</span>
                 )}
               </button>
             </div>
@@ -162,24 +162,24 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 className="text-xs text-blue-400 hover:underline flex items-center gap-1"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
-                <span>Hoe stel ik dit in?</span>
+                <span>How do I set this up?</span>
               </button>
             </div>
 
             {/* Help instructions drawer */}
             {showOAuthHelp && (
               <div className="p-3.5 rounded-xl bg-blue-950/30 border border-blue-500/30 text-xs text-blue-200 space-y-2">
-                <h4 className="font-bold text-white">Stap-voor-stap Google OAuth instellen (eenmalig 2 min):</h4>
+                <h4 className="font-bold text-white">Set up Google OAuth (about 2 minutes):</h4>
                 <ol className="list-decimal pl-4 space-y-1 text-[11px] text-blue-100/90 leading-relaxed">
-                  <li>Ga naar <a href="https://console.cloud.google.com" target="_blank" rel="noopener noreferrer" className="underline font-bold text-white">Google Cloud Console</a> en maak een gratis project aan.</li>
-                  <li>Ga naar <em>APIs & Services &gt; Library</em> en schakel de <strong>YouTube Data API v3</strong> in.</li>
-                  <li>Ga naar <em>APIs & Services &gt; Credentials</em> en klik op <strong>Create Credentials &gt; OAuth client ID</strong>.</li>
-                  <li>Kies bij Application type: <strong>Web application</strong>.</li>
-                  <li>Voeg bij <em>Authorized JavaScript origins</em> toe: <br />
-                    • <code className="bg-black/40 px-1 rounded text-amber-300">http://localhost:5173</code> (voor lokaal testen)<br />
-                    • <code className="bg-black/40 px-1 rounded text-amber-300">https://&lt;gebruiker&gt;.github.io</code> (je GitHub Pages link)
+                  <li>Open the <a href="https://console.cloud.google.com" target="_blank" rel="noopener noreferrer" className="underline font-bold text-white">Google Cloud Console</a> and create a project.</li>
+                  <li>Go to <em>APIs & Services &gt; Library</em> and enable the <strong>YouTube Data API v3</strong>.</li>
+                  <li>Go to <em>APIs & Services &gt; Credentials</em> and choose <strong>Create Credentials &gt; OAuth client ID</strong>.</li>
+                  <li>Set the application type to <strong>Web application</strong>.</li>
+                  <li>Add these under <em>Authorized JavaScript origins</em>: <br />
+                    • <code className="bg-black/40 px-1 rounded text-amber-300">http://localhost:5173</code> (local development)<br />
+                    • <code className="bg-black/40 px-1 rounded text-amber-300">https://&lt;username&gt;.github.io</code> (your GitHub Pages site)
                   </li>
-                  <li>Kopieer je <strong>Client ID</strong> en plak deze hieronder!</li>
+                  <li>Copy your <strong>client ID</strong> and enter it below.</li>
                 </ol>
               </div>
             )}
@@ -206,12 +206,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yt-pill hover:bg-yt-pillHover text-xs text-yt-textSec hover:text-white transition"
                 >
                   <LogOut className="w-3.5 h-3.5" />
-                  <span>Uitloggen</span>
+                  <span>Sign out</span>
                 </button>
               </div>
             ) : (
               <div className="flex items-center justify-between p-3 rounded-xl bg-yt-bg/60 border border-yt-border/50">
-                <span className="text-xs text-yt-textSec">Niet ingelogd</span>
+                <span className="text-xs text-yt-textSec">Not signed in</span>
                 <button
                   type="button"
                   onClick={onLogin}
@@ -219,7 +219,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-bold text-xs transition"
                 >
                   <LogIn className="w-3.5 h-3.5" />
-                  <span>Inloggen met Google</span>
+                  <span>Sign in with Google</span>
                 </button>
               </div>
             )}
@@ -241,7 +241,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             {/* Optional YouTube API Key */}
             <div className="space-y-1">
               <label className="text-[11px] font-medium text-yt-textSec block">
-                Optionele YouTube Data API Key (v3)
+                Optional YouTube Data API key (v3)
               </label>
               <input
                 type="text"
@@ -257,10 +257,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <div className="space-y-3 pt-3 border-t border-yt-border/40">
             <h3 className="text-xs font-bold uppercase tracking-wider text-yt-textSec flex items-center gap-2">
               <Download className="w-3.5 h-3.5 text-emerald-400" />
-              Synchronisatie tussen PC & Telefoon
+              Transfer settings between devices
             </h3>
             <p className="text-[11px] text-yt-textSec">
-              Exporteer eenvoudig je favorieten, instellingen en voorkeuren als backup of om direct over te zetten naar je telefoon.
+              Export your favorites, settings, and preferences as a backup or to transfer them to another device.
             </p>
 
             <div className="flex gap-2">
@@ -270,12 +270,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-yt-pill hover:bg-yt-pillHover text-xs font-semibold text-yt-text border border-yt-border/50 transition"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Exporteer JSON</span>
+                <span>Export JSON</span>
               </button>
 
               <label className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-yt-pill hover:bg-yt-pillHover text-xs font-semibold text-yt-text border border-yt-border/50 transition cursor-pointer">
                 <Upload className="w-3.5 h-3.5" />
-                <span>Importeer JSON</span>
+                <span>Import JSON</span>
                 <input
                   type="file"
                   accept=".json"
@@ -296,20 +296,23 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <div className="p-3.5 rounded-xl bg-yt-bg/60 border border-yt-border/50 flex items-start gap-3">
             <GitBranch className="w-5 h-5 text-yt-textSec flex-shrink-0 mt-0.5" />
             <div className="text-xs text-yt-textSec space-y-1">
-              <span className="font-bold text-yt-text block">GitHub Pages Deployment</span>
+              <span className="font-bold text-yt-text block">GitHub Pages deployment</span>
               <p>
-                De repository bevat een kant-en-klare GitHub Actions workflow in{' '}
+                The repository includes a GitHub Actions workflow at{' '}
                 <code className="bg-black/40 px-1 py-0.5 rounded text-white font-mono">.github/workflows/deploy.yml</code>.
-                Zodra je deze code pusht naar GitHub wordt de site automatisch gepubliceerd!
+                Push the code to GitHub to publish the site automatically.
               </p>
             </div>
           </div>
+          <p className="text-xs text-yt-textSec">
+            Read the <a href="./privacy.html" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Privacy Policy</a> for information about local storage and third-party services.
+          </p>
         </div>
 
         {/* Footer */}
         <div className="p-4 border-t border-yt-border/40 flex items-center justify-between bg-yt-bg/40">
           <span className="text-xs text-emerald-400 font-semibold">
-            {savedSuccess ? '✓ Instellingen opgeslagen!' : ''}
+            {savedSuccess ? '✓ Settings saved!' : ''}
           </span>
           <div className="flex gap-2">
             <button
@@ -317,7 +320,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               onClick={onClose}
               className="px-4 py-2 rounded-full text-xs font-semibold text-yt-textSec hover:text-white transition"
             >
-              Sluiten
+              Close
             </button>
             <button
               type="button"
@@ -325,7 +328,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               className="px-5 py-2 rounded-full bg-yt-red hover:bg-yt-redHover text-white font-bold text-xs flex items-center gap-1.5 shadow transition"
             >
               <Check className="w-3.5 h-3.5" />
-              <span>Opslaan</span>
+              <span>Save</span>
             </button>
           </div>
         </div>

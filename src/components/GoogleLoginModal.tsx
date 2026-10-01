@@ -76,9 +76,9 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
               </svg>
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Inloggen met Google</h2>
+              <h2 className="text-base font-bold text-white">Sign in with Google</h2>
               <p className="text-xs text-yt-textSec">
-                Synchroniseer je eigen YouTube abonnementen en uploads
+                Load your YouTube subscriptions and recent uploads
               </p>
             </div>
           </div>
@@ -100,9 +100,9 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white">Klaar om in te loggen!</h3>
+                <h3 className="text-base font-bold text-white">Ready to sign in!</h3>
                 <p className="text-xs text-yt-textSec mt-1 max-w-sm mx-auto">
-                  Je Google Client ID is ingesteld. Klik op de knop hieronder om het officiële Google inlogvenster te openen.
+                  Your Google client ID is set. Click below to open Google's official sign-in window.
                 </p>
               </div>
 
@@ -116,12 +116,12 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                   className="w-full max-w-sm mx-auto py-3 px-6 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition flex items-center justify-center gap-2.5 shadow-lg shadow-blue-600/30 active:scale-98"
                 >
                   <LogIn className="w-4 h-4" />
-                  <span>Nu inloggen met Google Account</span>
+                  <span>Sign in with Google</span>
                 </button>
               </div>
 
               <div className="text-xs text-yt-textSec pt-2">
-                <span>Ingestelde Client ID: </span>
+                <span>Configured client ID: </span>
                 <code className="text-yt-text font-mono text-[11px] bg-black/40 px-1.5 py-0.5 rounded">
                   {currentClientId.slice(0, 15)}...apps.googleusercontent.com
                 </code>{' '}
@@ -130,7 +130,7 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                   onClick={() => setIsEditing(true)}
                   className="text-blue-400 hover:underline ml-1 font-semibold"
                 >
-                  Wijzigen
+                  Change
                 </button>
               </div>
             </div>
@@ -141,8 +141,8 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
               <div className="p-3.5 rounded-xl bg-blue-950/20 border border-blue-500/30 flex items-start gap-3">
                 <Sparkles className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-blue-100/90 leading-relaxed">
-                  Google eist voor YouTube-toegang eenmalig een gratis <strong>Client ID</strong>.
-                  Volg de onderstaande stappen om hem in 1 minuut op te halen en hier in te vullen.
+                  Google requires a <strong>client ID</strong> to authorize YouTube access.
+                  Follow these steps to create one and enter it here.
                 </div>
               </div>
 
@@ -161,13 +161,13 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow transition"
                   >
-                    <span>Open Credentials Pagina</span>
+                    <span>Open credentials</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
                 <p className="text-[11px] text-yt-textSec pl-7 leading-relaxed">
                   • Klik op <strong>+ Create Credentials</strong> &gt; <strong>OAuth client ID</strong>.<br />
-                  • Kies bij Application type: <strong>Web application</strong>.
+                  • Choose <strong>Web application</strong> as the application type.
                 </p>
               </div>
 
@@ -177,10 +177,10 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                   <span className="w-5 h-5 rounded-full bg-yt-red text-white flex items-center justify-center text-[11px] font-black">
                     2
                   </span>
-                  Voeg je website-adres toe bij "Authorized JavaScript origins"
+                  Add your website origin under "Authorized JavaScript origins"
                 </span>
                 <p className="text-[11px] text-yt-textSec pl-7">
-                  Plak dit adres (of beide) in Google Cloud onder <em>Authorized JavaScript origins</em>:
+                  Add this origin (or both) in Google Cloud under <em>Authorized JavaScript origins</em>:
                 </p>
 
                 <div className="pl-7 space-y-2">
@@ -197,12 +197,12 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                       {copiedText === currentOrigin ? (
                         <>
                           <Check className="w-3 h-3 text-emerald-400" />
-                          <span className="text-emerald-400">Gekopieerd</span>
+                          <span className="text-emerald-400">Copied</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-3 h-3" />
-                          <span>Kopieer</span>
+                          <span>Copy</span>
                         </>
                       )}
                     </button>
@@ -222,12 +222,12 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                         {copiedText === 'http://localhost:5173' ? (
                           <>
                             <Check className="w-3 h-3 text-emerald-400" />
-                            <span className="text-emerald-400">Gekopieerd</span>
+                            <span className="text-emerald-400">Copied</span>
                           </>
                         ) : (
                           <>
                             <Copy className="w-3 h-3" />
-                            <span>Kopieer</span>
+                            <span>Copy</span>
                           </>
                         )}
                       </button>
@@ -242,7 +242,7 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                   <span className="w-5 h-5 rounded-full bg-yt-red text-white flex items-center justify-center text-[11px] font-black">
                     3
                   </span>
-                  Plak je Client ID en log direct in
+                  Enter your client ID and sign in
                 </span>
 
                 <div className="pl-7 space-y-2">
@@ -255,7 +255,7 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                     className="w-full bg-yt-surface border border-yt-border rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono shadow-inner"
                   />
                   <p className="text-[11px] text-yt-textSec">
-                    Kopieer de Client ID die Google je geeft en plak hem hier.
+                    Copy the client ID provided by Google and paste it here.
                   </p>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                     onClick={() => setIsEditing(false)}
                     className="px-4 py-2.5 rounded-full text-xs font-semibold text-yt-textSec hover:text-white"
                   >
-                    Annuleren
+                    Cancel
                   </button>
                 )}
                 <button
@@ -277,7 +277,7 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
                   className="flex-1 py-3 rounded-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
                 >
                   <LogIn className="w-4 h-4" />
-                  <span>Opslaan & Direct Inloggen met Google</span>
+                  <span>Save & sign in with Google</span>
                 </button>
               </div>
             </form>
@@ -288,13 +288,13 @@ export const GoogleLoginModal: React.FC<GoogleLoginModalProps> = ({
         <div className="px-5 py-3 border-t border-yt-border/40 bg-yt-bg/60 flex items-center justify-between text-xs text-yt-textSec">
           <div className="flex items-center gap-1.5 text-[11px]">
             <ShieldAlert className="w-3.5 h-3.5 text-yt-textSec" />
-            <span>Wordt veilig en lokaal in je browser bewaard</span>
+            <span>Stored in this browser</span>
           </div>
           <button
             onClick={onClose}
             className="px-4 py-1.5 rounded-full text-xs font-semibold text-yt-textSec hover:text-white hover:bg-yt-pill"
           >
-            Sluiten
+            Close
           </button>
         </div>
       </div>

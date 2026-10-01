@@ -10,7 +10,7 @@ export const DEMO_CHANNELS: Channel[] = [
     isFavorite: true,
     isMuted: false,
     subscriberCount: '15.8M',
-    tags: ['Wetenschap', 'Educatie'],
+    tags: ['Science', 'Education'],
   },
   {
     id: 'UCBJycsmduvYEL83R_U4JriQ',
@@ -30,7 +30,7 @@ export const DEMO_CHANNELS: Channel[] = [
     isFavorite: true,
     isMuted: false,
     subscriberCount: '22.4M',
-    tags: ['Animatie', 'Wetenschap'],
+    tags: ['Animation', 'Science'],
   },
   {
     id: 'UCsBjURrPoezykLs9EqgamOA',
@@ -50,7 +50,7 @@ export const DEMO_CHANNELS: Channel[] = [
     isFavorite: false,
     isMuted: false,
     subscriberCount: '155K',
-    tags: ['Tech', 'Nederlands'],
+    tags: ['Tech', 'Dutch'],
   },
   {
     id: 'UCnosop3',
@@ -60,7 +60,7 @@ export const DEMO_CHANNELS: Channel[] = [
     isFavorite: true,
     isMuted: false,
     subscriberCount: '890K',
-    tags: ['Nieuws', 'Nederlands'],
+    tags: ['News', 'Dutch'],
   },
   {
     id: 'UCcleoabram',
@@ -70,7 +70,7 @@ export const DEMO_CHANNELS: Channel[] = [
     isFavorite: false,
     isMuted: false,
     subscriberCount: '2.1M',
-    tags: ['Innovatie', 'Tech'],
+    tags: ['Innovation', 'Tech'],
   },
   {
     id: 'UCcoldfusion',
@@ -80,7 +80,7 @@ export const DEMO_CHANNELS: Channel[] = [
     isFavorite: false,
     isMuted: false,
     subscriberCount: '4.8M',
-    tags: ['Documentaires', 'Business'],
+    tags: ['Documentaries', 'Business'],
   },
 ];
 
@@ -101,7 +101,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 885, // 14:45 (perfect for <= 15 min!)
     publishedAt: hoursAgo(2),
-    viewCount: '480K weergaven',
+    viewCount: '480K views',
     isWatched: false,
     isFavoriteChannel: false,
   },
@@ -114,7 +114,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 275, // 4:35 (fits <= 5 min!)
     publishedAt: hoursAgo(4),
-    viewCount: '920K weergaven',
+    viewCount: '920K views',
     isWatched: false,
     isFavoriteChannel: true,
   },
@@ -127,20 +127,20 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 852, // 14:12 (fits <= 15 min!)
     publishedAt: hoursAgo(7),
-    viewCount: '3.4M weergaven',
+    viewCount: '3.4M views',
     isWatched: false,
     isFavoriteChannel: true,
   },
   {
     id: '9lB61gPzKzs',
-    title: 'Wat er écht gebeurt als AI straks al onze banen overneemt',
+    title: 'What Really Happens When AI Takes All Our Jobs',
     channelId: 'UCnosop3',
     channelTitle: 'NOS op 3',
     channelAvatar: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=120&auto=format&fit=crop&q=80',
     thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 580, // 9:40 (fits <= 10 min & <= 15 min)
     publishedAt: hoursAgo(10),
-    viewCount: '210K weergaven',
+    viewCount: '210K views',
     isWatched: false,
     isFavoriteChannel: true,
   },
@@ -153,7 +153,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 615, // 10:15
     publishedAt: hoursAgo(14),
-    viewCount: '8.1M weergaven',
+    viewCount: '8.1M views',
     isWatched: false,
     isFavoriteChannel: true,
   },
@@ -166,7 +166,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 785, // 13:05 (fits <= 15 min!)
     publishedAt: hoursAgo(18),
-    viewCount: '95K weergaven',
+    viewCount: '95K views',
     isWatched: false,
     isFavoriteChannel: false,
   },
@@ -179,7 +179,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 1125, // 18:45 (> 15 min, <= 30 min)
     publishedAt: hoursAgo(22),
-    viewCount: '2.8M weergaven',
+    viewCount: '2.8M views',
     isWatched: false,
     isFavoriteChannel: true,
   },
@@ -192,7 +192,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 1695, // 28:15 (<= 30 min)
     publishedAt: hoursAgo(28),
-    viewCount: '1.4M weergaven',
+    viewCount: '1.4M views',
     isWatched: false,
     isFavoriteChannel: false,
   },
@@ -205,7 +205,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 890, // 14:50 (fits <= 15 min!)
     publishedAt: hoursAgo(36),
-    viewCount: '2.1M weergaven',
+    viewCount: '2.1M views',
     isWatched: false,
     isFavoriteChannel: true,
   },
@@ -218,7 +218,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 135, // 2:15 (fits <= 5 min!)
     publishedAt: hoursAgo(42),
-    viewCount: '1.9M weergaven',
+    viewCount: '1.9M views',
     isWatched: false,
     isFavoriteChannel: true,
   },
@@ -231,20 +231,20 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 710, // 11:50 (fits <= 15 min!)
     publishedAt: hoursAgo(48),
-    viewCount: '6.7M weergaven',
+    viewCount: '6.7M views',
     isWatched: false,
     isFavoriteChannel: true,
   },
   {
     id: 'f87N_m_8yE4',
-    title: 'De Toekomst van Thuisbatterijen in Nederland (Zijn ze het waard?)',
+    title: 'The Future of Home Batteries in the Netherlands (Are They Worth It?)',
     channelId: 'UCtweakers',
     channelTitle: 'Tweakers',
     channelAvatar: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&auto=format&fit=crop&q=80',
     thumbnail: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 830, // 13:50 (fits <= 15 min!)
     publishedAt: hoursAgo(54),
-    viewCount: '140K weergaven',
+    viewCount: '140K views',
     isWatched: false,
     isFavoriteChannel: false,
   },
@@ -257,7 +257,7 @@ export const DEMO_VIDEOS_RAW: Omit<Video, 'durationFormatted' | 'publishedRelati
     thumbnail: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=640&auto=format&fit=crop&q=80',
     durationSeconds: 2740, // 45:40 (> 45 min)
     publishedAt: hoursAgo(72),
-    viewCount: '980K weergaven',
+    viewCount: '980K views',
     isWatched: false,
     isFavoriteChannel: false,
   }

@@ -11,7 +11,7 @@ interface TimeFilterBarProps {
 }
 
 const PRESET_DURATIONS = [
-  { label: 'Alles', maxMinutes: null, minMinutes: 0 },
+  { label: 'All', maxMinutes: null, minMinutes: 0 },
   { label: '≤ 5 min', maxMinutes: 5, minMinutes: 0 },
   { label: '≤ 10 min', maxMinutes: 10, minMinutes: 0 },
   { label: '≤ 15 min ⏱️', maxMinutes: 15, minMinutes: 0 },
@@ -73,7 +73,7 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
       >
         <Sliders className="w-3.5 h-3.5" />
         <span>
-          {isCustomTime ? `Precies ≤ ${filters.maxDurationMinutes} min` : 'Kies tijd...'}
+          {isCustomTime ? `Custom ≤ ${filters.maxDurationMinutes} min` : 'Set duration...'}
         </span>
       </button>
 
@@ -89,7 +89,7 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
         }`}
       >
         <Star className={`w-3.5 h-3.5 ${filters.onlyFavorites ? 'fill-black' : 'fill-none'}`} />
-        <span>Favorieten</span>
+        <span>Favorites</span>
       </button>
 
       {/* Hide Watched Toggle */}
@@ -100,15 +100,15 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
             ? 'bg-yt-pillActive text-yt-bg'
             : 'bg-yt-pill hover:bg-yt-pillHover text-yt-text'
         }`}
-        title="Verberg reeds geopende/bekeken video's"
+        title="Hide videos already opened or watched"
       >
         <EyeOff className="w-3.5 h-3.5" />
-        <span>Onbekeken</span>
+        <span>Unwatched</span>
       </button>
 
       {/* Sort Option Dropdown */}
       <div className="relative flex-shrink-0 ml-auto flex items-center gap-1">
-        <label htmlFor="sort-select" className="sr-only">Sorteren op</label>
+        <label htmlFor="sort-select" className="sr-only">Sort by</label>
         <ArrowUpDown className="w-3.5 h-3.5 text-yt-textSec" />
         <select
           id="sort-select"
@@ -116,14 +116,14 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
           onChange={(e) => onFilterChange({ sortBy: e.target.value as SortOption })}
           className="bg-yt-pill hover:bg-yt-pillHover text-xs text-yt-text rounded-lg px-2 py-1.5 border border-yt-border/40 focus:outline-none cursor-pointer"
         >
-          <option value="newest">Nieuwste eerst</option>
-          <option value="duration_asc">Kortste eerst</option>
-          <option value="duration_desc">Langste eerst</option>
+          <option value="newest">Newest first</option>
+          <option value="duration_asc">Shortest first</option>
+          <option value="duration_desc">Longest first</option>
         </select>
 
         {/* Video Count indicator */}
         <span className="hidden lg:inline-block text-[11px] text-yt-textSec px-2 whitespace-nowrap">
-          {filteredVideoCount} / {totalVideoCount} video's
+          {filteredVideoCount} / {totalVideoCount} videos
         </span>
       </div>
     </div>

@@ -84,7 +84,7 @@ export async function fetchUserProfile(accessToken: string): Promise<UserProfile
     if (!res.ok) return null;
     const data = await res.json();
     return {
-      name: data.name || 'Gebruiker',
+      name: data.name || 'User',
       email: data.email || '',
       avatar: data.picture || '',
     };
@@ -128,7 +128,7 @@ export async function fetchUserSubscriptions(accessToken: string): Promise<Chann
         if (channelId) {
           channels.push({
             id: channelId,
-            title: snippet.title || 'Kanaal',
+            title: snippet.title || 'Channel',
             thumbnail: snippet.thumbnails?.default?.url || snippet.thumbnails?.medium?.url || '',
             customUrl: '',
             isFavorite: false,

@@ -50,11 +50,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       >
         <Clock className="w-5 h-5 mb-0.5" />
         <span className="text-[10px] font-medium">
-          {filters.maxDurationMinutes !== null ? `≤${filters.maxDurationMinutes}m` : 'Tijd'}
+          {filters.maxDurationMinutes !== null ? `≤${filters.maxDurationMinutes}m` : 'Time'}
         </span>
       </button>
 
-      {/* Favorieten */}
+      {/* Favorites */}
       <button
         onClick={() => onFilterChange({ onlyFavorites: !filters.onlyFavorites })}
         className={`flex flex-col items-center justify-center flex-1 py-1 ${
@@ -64,25 +64,25 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         }`}
       >
         <Star className={`w-5 h-5 mb-0.5 ${filters.onlyFavorites ? 'fill-amber-400' : ''}`} />
-        <span className="text-[10px] font-medium">Favorieten</span>
+        <span className="text-[10px] font-medium">Favorites</span>
       </button>
 
-      {/* Kanalen */}
+      {/* Channels */}
       <button
         onClick={onOpenChannelManager}
         className="flex flex-col items-center justify-center flex-1 py-1 text-yt-textSec hover:text-yt-text"
       >
         <Tv className="w-5 h-5 mb-0.5" />
-        <span className="text-[10px] font-medium">Kanalen</span>
+        <span className="text-[10px] font-medium">Channels</span>
       </button>
 
-      {/* Instellingen */}
+      {/* Settings */}
       <button
         onClick={onOpenSettings}
         className="flex flex-col items-center justify-center flex-1 py-1 text-yt-textSec hover:text-yt-text"
       >
         <Settings className="w-5 h-5 mb-0.5" />
-        <span className="text-[10px] font-medium">Instellingen</span>
+        <span className="text-[10px] font-medium">Settings</span>
       </button>
     </nav>
   );

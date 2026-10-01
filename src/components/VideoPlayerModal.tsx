@@ -56,7 +56,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yt-pill hover:bg-yt-pillHover text-xs font-medium text-yt-text transition"
-              title="Open in officiële YouTube"
+              title="Open on YouTube"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Open in YouTube</span>
@@ -64,7 +64,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
             <button
               onClick={onClose}
               className="p-1.5 rounded-full hover:bg-yt-pillHover text-yt-textSec hover:text-white transition"
-              aria-label="Sluiten"
+              aria-label="Close"
             >
               <X className="w-5 h-5" />
             </button>
@@ -101,7 +101,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
                     type="button"
                     onClick={() => onToggleFavoriteChannel(video.channelId)}
                     className="p-1 hover:text-amber-400 transition"
-                    title={video.isFavoriteChannel ? 'Verwijder uit favorieten' : 'Voeg toe aan favorieten'}
+                    title={video.isFavoriteChannel ? 'Remove from favorites' : 'Add to favorites'}
                   >
                     <Star
                       className={`w-4 h-4 ${
@@ -130,7 +130,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
                 }`}
               >
                 <CheckCircle className="w-3.5 h-3.5" />
-                <span>{video.isWatched ? 'Gemarkeerd als bekeken' : 'Markeer als bekeken'}</span>
+                <span>{video.isWatched ? 'Marked as watched' : 'Mark as watched'}</span>
               </button>
             </div>
           </div>

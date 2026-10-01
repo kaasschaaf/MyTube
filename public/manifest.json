@@ -1,7 +1,7 @@
 {
   "name": "MyTube - Subscriptions Filter",
   "short_name": "MyTube",
-  "description": "Filter je YouTube subscriptions op videolengte en favorieten",
+  "description": "Filter your YouTube subscriptions by video duration and favorite channels.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f0f0f",

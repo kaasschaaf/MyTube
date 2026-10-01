@@ -47,7 +47,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
         {video.isWatched && (
           <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded bg-black/85 text-emerald-400 font-bold text-[11px] shadow">
             <CheckCircle className="w-3 h-3" />
-            <span>Bekeken</span>
+            <span>Watched</span>
           </div>
         )}
       </div>
@@ -90,7 +90,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
                 e.stopPropagation();
                 onToggleFavoriteChannel(video.channelId);
               }}
-              title={video.isFavoriteChannel ? 'Verwijder uit favorieten' : 'Voeg toe aan favorieten'}
+              title={video.isFavoriteChannel ? 'Remove from favorites' : 'Add to favorites'}
               className="p-0.5 hover:text-amber-400 transition"
             >
               <Star
@@ -130,7 +130,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
               e.stopPropagation();
               onToggleWatched(video.id);
             }}
-            title={video.isWatched ? 'Markeer als onbekeken' : 'Markeer als bekeken'}
+            title={video.isWatched ? 'Mark as unwatched' : 'Mark as watched'}
             className={`p-1.5 rounded-full hover:bg-yt-pill transition ${
               video.isWatched ? 'text-emerald-400' : 'text-yt-textSec hover:text-white'
             }`}

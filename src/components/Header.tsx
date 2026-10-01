@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex items-center gap-2 sm:gap-4">
         <button
           onClick={onToggleSidebar}
-          aria-label="Menu in/uitklappen"
+          aria-label="Toggle menu"
           className="p-2 rounded-full hover:bg-yt-pillHover active:scale-95 transition text-yt-text"
         >
           <Menu className="w-5 h-5" />
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative flex-1">
             <input
               type="text"
-              placeholder="Zoeken in video's of kanalen..."
+              placeholder="Search videos or channels..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               className="w-full bg-[#121212] border border-yt-border rounded-l-full py-2 pl-4 pr-9 text-sm text-yt-text placeholder-yt-textSec focus:outline-none focus:border-blue-500 transition shadow-inner"
@@ -79,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
           <button
-            aria-label="Zoeken"
+            aria-label="Search"
             className="bg-yt-pill hover:bg-yt-pillHover px-5 py-2 rounded-r-full border border-l-0 border-yt-border text-yt-textSec hover:text-white transition"
           >
             <Search className="w-4 h-4" />
@@ -93,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
           className="md:hidden p-2 rounded-full hover:bg-yt-pillHover text-yt-text"
-          aria-label="Zoeken"
+          aria-label="Search"
         >
           <Search className="w-5 h-5" />
         </button>
@@ -106,12 +106,12 @@ export const Header: React.FC<HeaderProps> = ({
               ? 'bg-yt-red/15 border-yt-red/50 text-red-300 hover:bg-yt-red/25'
               : 'bg-yt-pill border-yt-border hover:bg-yt-pillHover text-yt-text'
           }`}
-          title="Tijdsduur filteren"
+          title="Filter by duration"
         >
           <SlidersHorizontal className="w-3.5 h-3.5" />
-          <span className="hidden xs:inline">Tijd:</span>
+          <span className="hidden xs:inline">Time:</span>
           <span className="font-bold">
-            {maxDurationMinutes !== null ? `≤ ${maxDurationMinutes}m` : 'Alle tijd'}
+            {maxDurationMinutes !== null ? `≤ ${maxDurationMinutes}m` : 'Any length'}
           </span>
         </button>
 
@@ -119,9 +119,9 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onRefresh}
           disabled={isRefreshing}
-          aria-label="Feed verversen"
+          aria-label="Refresh feed"
           className="p-2 rounded-full hover:bg-yt-pillHover active:scale-95 transition text-yt-text disabled:opacity-50"
-          title="Ververs feed"
+          title="Refresh feed"
         >
           <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-yt-red' : ''}`} />
         </button>
@@ -129,9 +129,9 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Settings */}
         <button
           onClick={onOpenSettings}
-          aria-label="Instellingen"
+          aria-label="Settings"
           className="p-2 rounded-full hover:bg-yt-pillHover active:scale-95 transition text-yt-text"
-          title="Instellingen & Accounts"
+          title="Settings & accounts"
         >
           <Settings className="w-5 h-5" />
         </button>
@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-blue-500/50 hover:bg-blue-500/10 text-blue-400 font-medium text-xs transition"
           >
             <LogIn className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Inloggen</span>
+            <span className="hidden sm:inline">Sign in</span>
           </button>
         )}
       </div>
@@ -172,7 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
           <input
             type="text"
             autoFocus
-            placeholder="Zoeken in subscriptions..."
+            placeholder="Search subscriptions..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             className="flex-1 bg-yt-surface border border-yt-border rounded-full py-1.5 pl-4 pr-9 text-sm text-yt-text focus:outline-none"

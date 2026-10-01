@@ -46,17 +46,17 @@ export const VideoGrid: React.FC<VideoGridProps> = ({
           <Film className="w-8 h-8 opacity-60" />
         </div>
         <h3 className="text-lg font-bold text-yt-text mb-1">
-          Geen passende video's gevonden
+          No matching videos found
         </h3>
         <p className="text-sm text-yt-textSec max-w-sm mb-6">
-          Er zijn op dit moment geen video's die voldoen aan je gekozen tijdsduur of favorietenfilters.
+          There are no videos matching your current duration or favorites filters.
         </p>
         <button
           onClick={onResetFilters}
           className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-yt-pill hover:bg-yt-pillHover text-yt-text font-semibold text-xs transition border border-yt-border/50"
         >
           <RotateCcw className="w-4 h-4" />
-          <span>Filters resetten</span>
+          <span>Reset filters</span>
         </button>
       </div>
     );

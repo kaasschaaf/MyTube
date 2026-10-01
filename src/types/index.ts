@@ -19,8 +19,8 @@ export interface Video {
   durationSeconds: number; // In seconds (e.g. 890s = 14m 50s)
   durationFormatted: string; // e.g. "14:50"
   publishedAt: string; // ISO date string
-  publishedRelative: string; // e.g. "3 uur geleden"
-  viewCount: string; // e.g. "450K weergaven"
+  publishedRelative: string; // e.g. "3 hours ago"
+  viewCount: string; // e.g. "450K views"
   isWatched: boolean;
   isFavoriteChannel?: boolean;
 }

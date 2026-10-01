@@ -64,9 +64,9 @@ export const TimeSliderModal: React.FC<TimeSliderModalProps> = ({
               <Clock className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold">Hoeveel tijd heb je?</h2>
+              <h2 className="text-base font-bold">How much time do you have?</h2>
               <p className="text-xs text-yt-textSec">
-                Filter direct op video's die binnen je tijdslot passen
+                Filter videos to fit the time you have
               </p>
             </div>
           </div>
@@ -84,20 +84,20 @@ export const TimeSliderModal: React.FC<TimeSliderModalProps> = ({
           <div className="text-center mb-6">
             {isUnlimited ? (
               <div className="text-4xl font-extrabold text-white tracking-tight">
-                Onbeperkt
+                No limit
               </div>
             ) : (
               <div className="flex items-baseline justify-center gap-1.5">
                 <span className="text-5xl font-black text-yt-red tracking-tight">
                   {minutes}
                 </span>
-                <span className="text-xl font-medium text-yt-textSec">minuten</span>
+                <span className="text-xl font-medium text-yt-textSec">minutes</span>
               </div>
             )}
             <p className="text-xs text-yt-textSec mt-1">
               {isUnlimited
-                ? "Toont video's van elke lengte"
-                : `Toont alleen video's van maximaal ${minutes} minuten`}
+                ? 'Shows videos of any length'
+                : `Shows videos up to ${minutes} minutes long`}
             </p>
           </div>
 
@@ -128,12 +128,12 @@ export const TimeSliderModal: React.FC<TimeSliderModalProps> = ({
           {/* Quick presets */}
           <div className="grid grid-cols-3 gap-2 w-full mb-6">
             {[
-              { label: '5 min', value: 5, desc: 'Korte snack' },
-              { label: '10 min', value: 10, desc: 'Koffiepauze' },
-              { label: '15 min ⭐', value: 15, desc: 'Voor vertrek' },
-              { label: '20 min', value: 20, desc: 'Lunchbreak' },
-              { label: '30 min', value: 30, desc: 'Relaxen' },
-              { label: 'Alles', value: null, desc: 'Geen limiet' },
+              { label: '5 min', value: 5, desc: 'Quick break' },
+              { label: '10 min', value: 10, desc: 'Coffee break' },
+              { label: '15 min ⭐', value: 15, desc: 'Before you go' },
+              { label: '20 min', value: 20, desc: 'Lunch break' },
+              { label: '30 min', value: 30, desc: 'Take it easy' },
+              { label: 'All', value: null, desc: 'No limit' },
             ].map((p) => {
               const active =
                 (p.value === null && isUnlimited) ||
@@ -166,10 +166,10 @@ export const TimeSliderModal: React.FC<TimeSliderModalProps> = ({
           {/* Results Badge */}
           <div className="w-full bg-yt-bg/80 border border-yt-border/50 rounded-xl py-2 px-3 flex items-center justify-between text-xs">
             <span className="text-yt-textSec flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Passende video's gevonden:
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Matching videos:
             </span>
             <span className="font-bold text-white bg-yt-pill px-2 py-0.5 rounded-full">
-              {matchingCount} video's
+              {matchingCount} videos
             </span>
           </div>
         </div>
@@ -181,7 +181,7 @@ export const TimeSliderModal: React.FC<TimeSliderModalProps> = ({
             onClick={handleReset}
             className="flex-1 py-2.5 rounded-full text-xs font-semibold text-yt-textSec hover:text-white hover:bg-yt-pillHover transition"
           >
-            Resetten
+            Reset
           </button>
           <button
             type="button"
@@ -189,7 +189,7 @@ export const TimeSliderModal: React.FC<TimeSliderModalProps> = ({
             className="flex-1 py-2.5 rounded-full text-xs font-bold bg-yt-red hover:bg-yt-redHover text-white flex items-center justify-center gap-1.5 shadow-md transition"
           >
             <Check className="w-4 h-4" />
-            Toepassen
+            Apply
           </button>
         </div>
       </div>

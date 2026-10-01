@@ -63,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }`}
             >
               <Home className="w-5 h-5" />
-              <span>Alle Video's</span>
+              <span>All videos</span>
             </button>
 
             <button
@@ -78,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }`}
             >
               <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
-              <span>Favoriete Kanalen</span>
+              <span>Favorite channels</span>
             </button>
 
             <button
@@ -93,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }`}
             >
               <Clock className="w-5 h-5 text-yt-red" />
-              <span>Binnen 15 minuten ⏱️</span>
+              <span>Under 15 minutes ⏱️</span>
             </button>
 
             <button
@@ -108,7 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }`}
             >
               <Sparkles className="w-5 h-5 text-blue-400" />
-              <span>Snelle snacks (≤ 5 min)</span>
+              <span>Quick picks (≤ 5 min)</span>
             </button>
           </div>
 
@@ -118,13 +118,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div>
             <div className="flex items-center justify-between px-3 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider text-yt-textSec">
-                Abonnementen ({channels.length})
+                Subscriptions ({channels.length})
               </span>
               <button
                 onClick={onOpenChannelManager}
                 className="text-xs text-blue-400 hover:underline"
               >
-                Beheer
+                Manage
               </button>
             </div>
 
@@ -167,7 +167,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           onToggleFavoriteChannel(channel.id);
                         }}
                         className="p-1 hover:text-amber-400 transition"
-                        title={channel.isFavorite ? 'Favoriet' : 'Markeer favoriet'}
+                        title={channel.isFavorite ? 'Favorite' : 'Add to favorites'}
                       >
                         <Star
                           className={`w-3.5 h-3.5 ${
@@ -178,7 +178,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         />
                       </button>
 
-                      {/* Mute/Dempen */}
+                      {/* Mute channel */}
                       <button
                         type="button"
                         onClick={(e) => {
@@ -186,7 +186,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           onToggleMuteChannel(channel.id);
                         }}
                         className="p-1 hover:text-red-400 transition"
-                        title={channel.isMuted ? 'Gedempt (klik om te herstellen)' : 'Demp kanaal'}
+                        title={channel.isMuted ? 'Muted (click to unmute)' : 'Mute channel'}
                       >
                         {channel.isMuted ? (
                           <VolumeX className="w-3.5 h-3.5 text-red-400" />
@@ -213,7 +213,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className="w-full flex items-center gap-4 px-3 py-2 rounded-xl text-xs text-yt-textSec hover:text-yt-text hover:bg-yt-pill transition"
             >
               <Tv className="w-4 h-4" />
-              <span>Kanalen filteren & beheren</span>
+              <span>Filter & manage channels</span>
             </button>
 
             <button
@@ -224,7 +224,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className="w-full flex items-center gap-4 px-3 py-2 rounded-xl text-xs text-yt-textSec hover:text-yt-text hover:bg-yt-pill transition"
             >
               <Settings className="w-4 h-4" />
-              <span>Instellingen & Accounts</span>
+              <span>Settings & accounts</span>
             </button>
           </div>
         </div>

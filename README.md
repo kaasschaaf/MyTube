@@ -1,82 +1,36 @@
-# MyTube 🎬⏱️ - YouTube Subscriptions Filter
+# MyTube - YouTube Subscription Filter
 
-Een moderne webapplicatie (geschikt voor PC, Mac, tablet en smartphone/PWA) waarmee je je YouTube-abonnementen kunt filteren op **videoduur** (bijv. *"Ik heb nog 15 minuten"*), **favorieten** en **prioriteiten**, verpakt in de vertrouwde **YouTube Dark UI**.
+MyTube is a responsive web app and installable PWA for filtering YouTube videos by **duration**, **favorite channels**, and **watched status**. It can run with a built-in demo feed or connect to your YouTube account using Google OAuth in your browser.
 
-Ontworpen om direct gehost te worden via **GitHub Pages** als pure statische Single Page App (SPA).
+The app is a static single-page application with no MyTube backend or user database. See the [Privacy Policy](./public/privacy.html) for details about local browser storage and third-party services.
 
----
+## Features
 
-## ✨ Belangrijkste Functionaliteiten
+- **Filter by duration:** Use preset ranges or set a custom time budget.
+- **Manage channels:** Favorite or mute channels without changing your YouTube subscriptions.
+- **Track watched videos:** Mark videos as watched and optionally hide them.
+- **Responsive PWA:** Use the desktop layout or mobile navigation; add the app to your home screen.
+- **Optional Google sign-in:** Read your YouTube subscriptions and recent uploads through the YouTube Data API.
+- **Local backup:** Export and import app settings as a JSON file. This is a manual file transfer, not cloud synchronization.
 
-1. ⏱️ **Filteren op Videolengte ("Ik heb nog X minuten")**:
-   - Snelle filterchips: `≤ 5 min`, `≤ 10 min`, `≤ 15 min`, `≤ 30 min`, `≤ 45 min`, `45+ min`.
-   - Vrije tijd-slider: Stel exact je beschikbare tijd in (bijv. 12 minuten) voordat je de deur uit moet.
-   - Exacte YouTube-stijl tijdsbadges op elke thumbnail.
-2. ⭐ **Favorieten & Kanaalbeheer**:
-   - Geef kanalen een ⭐-markering om ze als favoriet aan te merken.
-   - Filter met 1 klik op *Alleen favorieten*.
-   - Demp (mute) minder leuke kanalen zonder te hoeven ontvolgen op YouTube.
-3. 📱 **Perfect op PC & Smartphone (PWA)**:
-   - **Desktop**: YouTube-grid (3-4 kolommen) met inklapbare navigatie-sidebar.
-   - **Mobiel**: Single-column feed met YouTube Mobile bottom navigation bar.
-   - **PWA**: Voeg toe aan je beginscherm op iOS (Safari) of Android (Chrome) voor een app-ervaring zonder browserbalken.
-4. 🔐 **Google Account Koppeling (OAuth 2.0)**:
-   - Direct inloggen via Google Identity Services Token Client (client-side, 100% veilig zonder backend).
-   - Automatische synchronisatie van al je abonnementen en recente uploads.
-5. 💾 **Backup & Synchronisatie tussen Apparaten**:
-   - 1-klik JSON Export & Import om je favorieten en instellingen eenvoudig over te zetten van je computer naar je telefoon.
+## Run locally
 
----
+1. Install dependencies:
 
-## 🚀 Lokaal Draaien
-
-1. **Installeer afhankelijkheden**:
    ```bash
    npm install
    ```
 
-2. **Start de ontwikkelserver**:
+2. Start the development server:
+
    ```bash
    npm run dev
    ```
-   De applicatie is nu bereikbaar op `http://localhost:5173`.
 
-3. **Openen op je telefoon (via lokaal Wi-Fi netwerk)**:
-   Omdat `vite.config.ts` is ingesteld met `host: '0.0.0.0'`, toont de terminal direct een Network URL (bijv. `http://192.168.1.15:5173`). Open deze link in de browser op je smartphone!
+3. Open the URL shown by Vite, normally `http://localhost:5173`.
 
----
+To test on a phone on the same Wi-Fi network, open the network URL printed by Vite.
 
-## 🌐 Publiceren naar GitHub Pages
+## Project
 
-Deze repository bevat een geautomatiseerde **GitHub Actions workflow** (`.github/workflows/deploy.yml`).
-
-1. **Maak een repository aan op GitHub** (bijv. `mytube`).
-2. **Koppel je lokale repository en push de code**:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit of MyTube"
-   git branch -M main
-   git remote add origin https://github.com/<jouw-gebruikersnaam>/mytube.git
-   git push -u origin main
-   ```
-3. **Schakel GitHub Pages in**:
-   - Ga op GitHub naar je repository &gt; **Settings** &gt; **Pages**.
-   - Selecteer bij **Build and deployment > Source**: **GitHub Actions**.
-   - Binnen enkele minuten staat je app live op:
-     `https://<jouw-gebruikersnaam>.github.io/mytube/`
-
----
-
-## 🔑 Google OAuth Instellen (Optioneel voor eigen abonnementen)
-
-Standaard bevat MyTube een **rijke demo-feed** met kanalen zoals Veritasium, MKBHD, Kurzgesagt, NOS op 3 en Tweakers, zodat alles direct werkt.
-
-Wil je je **eigen YouTube-account** koppelen:
-1. Ga naar de [Google Cloud Console](https://console.cloud.google.com).
-2. Maak een gratis project aan en activeer de **YouTube Data API v3** (*APIs & Services > Library*).
-3. Ga naar *Credentials* &gt; *Create Credentials* &gt; *OAuth client ID* (kies: **Web application**).
-4. Voeg bij **Authorized JavaScript origins** toe:
-   - `http://localhost:5173` (voor lokaal testen)
-   - `https://<jouw-gebruikersnaam>.github.io` (voor je GitHub Pages site)
-5. Plak je **Client ID** in het instellingenmenu van MyTube en klik op **Inloggen met Google**!
+Source code: [github.com/kaasschaaf/MyTube](https://github.com/kaasschaaf/MyTube)
