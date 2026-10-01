@@ -85,7 +85,9 @@ export const App: React.FC = () => {
   // Google OAuth Login handler
   const handleLogin = useCallback(
     (explicitClientId?: string) => {
-      const effectiveClientId = (explicitClientId || settings.googleClientId || '').trim();
+      const clientId =
+        typeof explicitClientId === 'string' ? explicitClientId : settings.googleClientId;
+      const effectiveClientId = (clientId || '').trim();
       if (!effectiveClientId) {
         setIsGoogleLoginOpen(true);
         return;

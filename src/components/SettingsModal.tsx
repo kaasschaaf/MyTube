@@ -214,7 +214,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <span className="text-xs text-yt-textSec">Not signed in</span>
                 <button
                   type="button"
-                  onClick={onLogin}
+                  onClick={() => onLogin()}
                   disabled={!clientId}
                   className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-bold text-xs transition"
                 >
