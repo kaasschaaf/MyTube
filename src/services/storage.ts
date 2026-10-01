@@ -1,12 +1,19 @@
-import { AppSettings } from '../types';
+import { AppSettings, Channel } from '../types';
 
 const STORAGE_KEY = 'mytube_app_settings_v1';
+const CHANNELS_STORAGE_KEY = 'mytube_imported_channels_v1';
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  googleClientId: '',
-  youtubeApiKey: '',
+  googleClientId: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
+  youtubeApiKey: import.meta.env.VITE_YOUTUBE_API_KEY || '',
   dataSource: 'demo',
-  favoriteChannelIds: ['UC6nSFpj9HTCZ5t-N3Rm3-HA', 'UCBJycsmduvYEL83R_U4JriQ', 'UCsXVk37bltHxD1rDPwtNM8Q', 'UCsBjURrPoezykLs9EqgamOA', 'UCnosop3'],
+  favoriteChannelIds: [
+    'UC6nSFpj9HTCZ5t-N3Rm3-HA',
+    'UCBJycsmduvYEL83R_U4JriQ',
+    'UCsXVk37bltHxD1rDPwtNM8Q',
+    'UCsBjURrPoezykLs9EqgamOA',
+    'UCnosop3',
+  ],
   mutedChannelIds: [],
   watchedVideoIds: [],
 };
@@ -31,14 +38,64 @@ export function saveSettings(settings: AppSettings): void {
   }
 }
 
+export function loadStoredChannels(): Channel[] | null {
+  try {
+    const raw = localStorage.getItem(CHANNELS_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveStoredChannels(channels: Channel[]): void {
+  try {
+    localStorage.setItem(CHANNELS_STORAGE_KEY, JSON.stringify(channels));
+  } catch (e) {
+    console.error('Failed to save channels:', e);
+  }
+}
+
+/**
+ * Parses Google Takeout subscriptions.csv export.
+ * Typical format:
+ * Channel Id,Channel Url,Channel Title
+ * UC6nSFpj9HTCZ5t-N3Rm3-HA,http://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA,Veritasium
+ */
+export function parseYouTubeSubscriptionsCSV(csvContent: string): { id: string; title: string }[] {
+  const lines = csvContent.split(/\r?\n/);
+  const channels: { id: string; title: string }[] = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.toLowerCase().startsWith('channel id')) continue;
+
+    // Match CSV columns (handling quotes or plain commas)
+    const parts = trimmed.split(',');
+    if (parts.length >= 3) {
+      const id = parts[0].replace(/"/g, '').trim();
+      const title = parts.slice(2).join(',').replace(/"/g, '').trim();
+
+      if (id.startsWith('UC')) {
+        channels.push({ id, title: title || 'Kanaal' });
+      }
+    }
+  }
+
+  return channels;
+}
+
 /**
  * Exports settings and favorites to a downloadable JSON file.
  */
 export function exportSettingsToFile(settings: AppSettings): void {
-  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(settings, null, 2));
+  const dataStr =
+    'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(settings, null, 2));
   const downloadAnchor = document.createElement('a');
   downloadAnchor.setAttribute('href', dataStr);
-  downloadAnchor.setAttribute('download', `mytube-backup-${new Date().toISOString().slice(0, 10)}.json`);
+  downloadAnchor.setAttribute(
+    'download',
+    `mytube-backup-${new Date().toISOString().slice(0, 10)}.json`
+  );
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();

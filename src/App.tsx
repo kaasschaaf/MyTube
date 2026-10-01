@@ -7,6 +7,7 @@ import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { TimeSliderModal } from './components/TimeSliderModal';
 import { ChannelManagerModal } from './components/ChannelManagerModal';
 import { SettingsModal } from './components/SettingsModal';
+import { ImportOrLoginModal } from './components/ImportOrLoginModal';
 import { MobileNav } from './components/MobileNav';
 
 import { Channel, Video, FilterState, AppSettings, UserProfile } from './types';
@@ -16,6 +17,8 @@ import {
   saveSettings,
   exportSettingsToFile,
   importSettingsFromString,
+  loadStoredChannels,
+  saveStoredChannels,
 } from './services/storage';
 import {
   initGoogleAuth,
@@ -30,7 +33,9 @@ export const App: React.FC = () => {
 
   // Channels & Videos data
   const [channels, setChannels] = useState<Channel[]>(() => {
-    return DEMO_CHANNELS.map((c) => ({
+    const saved = loadStoredChannels();
+    const base = saved && saved.length > 0 ? saved : DEMO_CHANNELS;
+    return base.map((c) => ({
       ...c,
       isFavorite: settings.favoriteChannelIds.includes(c.id),
       isMuted: settings.mutedChannelIds.includes(c.id),
@@ -60,6 +65,7 @@ export const App: React.FC = () => {
   const [isTimeSliderOpen, setIsTimeSliderOpen] = useState(false);
   const [isChannelManagerOpen, setIsChannelManagerOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isImportOrLoginOpen, setIsImportOrLoginOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<Video | null>(null);
 
   // Synchronize settings changes to localStorage
@@ -78,39 +84,57 @@ export const App: React.FC = () => {
   };
 
   // Google OAuth Login handler
-  const handleLogin = useCallback(() => {
-    if (!settings.googleClientId) {
-      setIsSettingsOpen(true);
-      return;
-    }
-
-    const triggerAuth = initGoogleAuth(
-      settings.googleClientId,
-      async (token) => {
-        setAccessToken(token);
-        // Fetch user profile
-        const profile = await fetchUserProfile(token);
-        if (profile) setUserProfile(profile);
-
-        // Switch to Google data source
-        const updatedSettings: AppSettings = { ...settings, dataSource: 'google' };
-        handleUpdateSettings(updatedSettings);
-
-        // Fetch subscriptions & videos
-        await loadGoogleData(token);
-      },
-      (err) => {
-        console.error('Google Auth Error:', err);
-        alert(`Google Login mislukt: ${err}`);
+  const handleLogin = useCallback(
+    (explicitClientId?: string) => {
+      const effectiveClientId = (explicitClientId || settings.googleClientId || '').trim();
+      if (!effectiveClientId) {
+        setIsImportOrLoginOpen(true);
+        return;
       }
-    );
 
-    if (triggerAuth) {
-      triggerAuth();
-    } else {
-      alert('Google Identity Services script is nog aan het laden. Probeer het over enkele seconden opnieuw.');
-    }
-  }, [settings]);
+      const triggerAuth = initGoogleAuth(
+        effectiveClientId,
+        async (token) => {
+          setAccessToken(token);
+          // Fetch user profile
+          const profile = await fetchUserProfile(token);
+          if (profile) setUserProfile(profile);
+
+          // Switch to Google data source
+          const updatedSettings: AppSettings = {
+            ...settings,
+            googleClientId: effectiveClientId,
+            dataSource: 'google',
+          };
+          handleUpdateSettings(updatedSettings);
+
+          // Fetch subscriptions & videos
+          await loadGoogleData(token);
+        },
+        (err) => {
+          console.error('Google Auth Error:', err);
+          alert(`Google Login mislukt: ${err}`);
+        }
+      );
+
+      if (triggerAuth) {
+        triggerAuth();
+      } else {
+        alert('Google Identity Services script is nog aan het laden. Probeer het over enkele seconden opnieuw.');
+      }
+    },
+    [settings]
+  );
+
+  const handleImportChannels = (imported: Channel[]) => {
+    const mapped = imported.map((c) => ({
+      ...c,
+      isFavorite: settings.favoriteChannelIds.includes(c.id),
+      isMuted: settings.mutedChannelIds.includes(c.id),
+    }));
+    setChannels(mapped);
+    saveStoredChannels(mapped);
+  };
 
   const handleLogout = () => {
     setAccessToken(null);
@@ -404,6 +428,16 @@ export const App: React.FC = () => {
         onLogout={handleLogout}
         onExport={() => exportSettingsToFile(settings)}
         onImport={handleImportBackup}
+      />
+
+      <ImportOrLoginModal
+        isOpen={isImportOrLoginOpen}
+        onClose={() => setIsImportOrLoginOpen(false)}
+        onImportChannels={handleImportChannels}
+        onGoogleLogin={handleLogin}
+        hasGoogleClientId={Boolean(settings.googleClientId)}
+        currentClientId={settings.googleClientId}
+        onSaveClientId={(id) => handleUpdateSettings({ ...settings, googleClientId: id })}
       />
 
       <VideoPlayerModal
