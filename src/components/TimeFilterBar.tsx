@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Sliders, EyeOff, Radio, ArrowUpDown } from 'lucide-react';
+import { Star, Sliders, EyeOff, Radio, Smartphone, ArrowUpDown } from 'lucide-react';
 import { FilterState, SortOption } from '../types';
 
 interface TimeFilterBarProps {
@@ -107,19 +107,34 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
         <span>Unwatched</span>
       </button>
 
-      {/* Hide Shorts and live streams */}
+      {/* Hide Shorts */}
       <button
-        onClick={() => onFilterChange({ hideShortsAndLive: !filters.hideShortsAndLive })}
-        aria-pressed={filters.hideShortsAndLive}
+        onClick={() => onFilterChange({ hideShorts: !filters.hideShorts })}
+        aria-pressed={filters.hideShorts}
         className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-          filters.hideShortsAndLive
+          filters.hideShorts
             ? 'bg-yt-pillActive text-yt-bg'
             : 'bg-yt-pill hover:bg-yt-pillHover text-yt-text'
         }`}
-        title="Shorts are approximated as videos up to 3 minutes. Live streams include current, upcoming, and videos with live-stream metadata."
+        title="Shorts are approximated as videos up to 3 minutes; regular short videos may also be hidden."
+      >
+        <Smartphone className="w-3.5 h-3.5" />
+        <span>{filters.hideShorts ? 'Hide Shorts' : 'Show Shorts'}</span>
+      </button>
+
+      {/* Hide live streams */}
+      <button
+        onClick={() => onFilterChange({ hideLiveStreams: !filters.hideLiveStreams })}
+        aria-pressed={filters.hideLiveStreams}
+        className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+          filters.hideLiveStreams
+            ? 'bg-yt-pillActive text-yt-bg'
+            : 'bg-yt-pill hover:bg-yt-pillHover text-yt-text'
+        }`}
+        title="Hide current, upcoming, and videos with live-stream metadata."
       >
         <Radio className="w-3.5 h-3.5" />
-        <span>{filters.hideShortsAndLive ? 'Hide Shorts & live' : 'Show Shorts & live'}</span>
+        <span>{filters.hideLiveStreams ? 'Hide live' : 'Show live'}</span>
       </button>
 
       {/* Sort Option Dropdown */}

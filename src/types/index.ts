@@ -33,7 +33,8 @@ export interface FilterState {
   minDurationMinutes: number; // 0 default
   onlyFavorites: boolean;
   hideWatched: boolean;
-  hideShortsAndLive: boolean;
+  hideShorts: boolean;
+  hideLiveStreams: boolean;
   searchQuery: string;
   selectedChannelId: string | null;
   sortBy: SortOption;

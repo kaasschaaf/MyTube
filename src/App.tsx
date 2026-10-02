@@ -54,7 +54,8 @@ export const App: React.FC = () => {
     minDurationMinutes: 0,
     onlyFavorites: false,
     hideWatched: true,
-    hideShortsAndLive: true,
+    hideShorts: true,
+    hideLiveStreams: true,
     searchQuery: '',
     selectedChannelId: null,
     sortBy: 'newest',
@@ -313,11 +314,12 @@ export const App: React.FC = () => {
           return false;
         }
 
-        // Hide short-form videos (up to 3 minutes) and live streams by default.
-        if (
-          filters.hideShortsAndLive &&
-          (video.isLiveStream || (video.durationSeconds > 0 && video.durationSeconds <= 180))
-        ) {
+        // YouTube does not expose a reliable Shorts flag, so use three minutes as an approximation.
+        if (filters.hideShorts && video.durationSeconds > 0 && video.durationSeconds <= 180) {
+          return false;
+        }
+
+        if (filters.hideLiveStreams && video.isLiveStream) {
           return false;
         }
 
@@ -349,7 +351,8 @@ export const App: React.FC = () => {
       minDurationMinutes: 0,
       onlyFavorites: false,
       hideWatched: true,
-      hideShortsAndLive: true,
+      hideShorts: true,
+      hideLiveStreams: true,
       searchQuery: '',
       selectedChannelId: null,
       sortBy: 'newest',
