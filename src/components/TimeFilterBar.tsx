@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Sliders, EyeOff, ArrowUpDown } from 'lucide-react';
+import { Star, Sliders, EyeOff, Radio, ArrowUpDown } from 'lucide-react';
 import { FilterState, SortOption } from '../types';
 
 interface TimeFilterBarProps {
@@ -95,6 +95,7 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
       {/* Hide Watched Toggle */}
       <button
         onClick={() => onFilterChange({ hideWatched: !filters.hideWatched })}
+        aria-pressed={filters.hideWatched}
         className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
           filters.hideWatched
             ? 'bg-yt-pillActive text-yt-bg'
@@ -104,6 +105,21 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
       >
         <EyeOff className="w-3.5 h-3.5" />
         <span>Unwatched</span>
+      </button>
+
+      {/* Hide Shorts and live streams */}
+      <button
+        onClick={() => onFilterChange({ hideShortsAndLive: !filters.hideShortsAndLive })}
+        aria-pressed={filters.hideShortsAndLive}
+        className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+          filters.hideShortsAndLive
+            ? 'bg-yt-pillActive text-yt-bg'
+            : 'bg-yt-pill hover:bg-yt-pillHover text-yt-text'
+        }`}
+        title="Shorts are approximated as videos up to 3 minutes. Live streams include current, upcoming, and videos with live-stream metadata."
+      >
+        <Radio className="w-3.5 h-3.5" />
+        <span>{filters.hideShortsAndLive ? 'Hide Shorts & live' : 'Show Shorts & live'}</span>
       </button>
 
       {/* Sort Option Dropdown */}

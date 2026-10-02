@@ -96,7 +96,7 @@
     <h2>3. Where information is stored</h2>
     <div class="highlight">
       <p><strong>In your browser:</strong> MyTube stores app settings, your Google client ID or API key if you enter one, favorite and muted channel IDs, watched video IDs, and a cache of video IDs and durations in local storage.</p>
-      <p><strong>In memory:</strong> While the page is open, Google profile information, the temporary OAuth access token, and data fetched from YouTube are held in the app's memory. The app does not save the access token or Google profile to its own persistent storage.</p>
+      <p><strong>In memory:</strong> While the page is open, Google profile information, the temporary OAuth access token, and data fetched from YouTube are held in the app's memory. The app does not save the access token or Google profile to its own persistent storage. If you previously authorized the app, it may ask Google for a fresh token silently on a later visit.</p>
     </div>
     <p>
       Browser storage is specific to the browser and device you use. MyTube does not receive a copy of this information. The Google API key field is optional; the current app stores its value with your settings but does not use it in its API requests. Exporting settings downloads a JSON file to your device; that file may contain your preferences and configured IDs or keys.
@@ -137,7 +137,7 @@
 
     <h2>7. Purposes and retention</h2>
     <p>
-      The app uses the requested information only to show your profile, subscriptions, recent uploads, and video information, and to apply your local preferences. Google account access is initiated by you and managed through Google's consent screen. Preferences and the duration cache remain in your browser until you clear them. Temporary app data and the access token are kept in memory while the page is open and are discarded when the page is unloaded. GitHub, Google, YouTube, and image providers may retain data under their own policies.
+      The app uses the requested information only to show your profile, subscriptions, recent uploads, and video information, and to apply your local preferences. Google account access is initiated by you and managed through Google's consent screen. On later visits, the app attempts to restore an existing Google authorization without storing the access token; Google may require you to sign in or grant access again. Preferences and the duration cache remain in your browser until you clear them. Temporary app data and the access token are kept in memory while the page is open and are discarded when the page is unloaded. GitHub, Google, YouTube, and image providers may retain data under their own policies.
     </p>
     <p>
       MyTube does not sell Google user data or use it for advertising. See the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a> for Google's requirements concerning data obtained through its APIs.

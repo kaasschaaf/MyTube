@@ -8,9 +8,9 @@ The app is a static single-page application with no MyTube backend or user datab
 
 - **Filter by duration:** Use preset ranges or set a custom time budget.
 - **Manage channels:** Favorite or mute channels without changing your YouTube subscriptions.
-- **Track watched videos:** Mark videos as watched and optionally hide them.
+- **Filter your feed:** Hide watched videos by default and toggle watched status as needed. You can also hide live streams and videos up to 3 minutes long (a Shorts approximation; regular short videos may be hidden too).
 - **Responsive PWA:** Use the desktop layout or mobile navigation; add the app to your home screen.
-- **Optional Google sign-in:** Read your YouTube subscriptions and recent uploads through the YouTube Data API.
+- **Optional Google sign-in:** Read your YouTube subscriptions and recent uploads through the YouTube Data API. Previously authorized sessions are restored when possible without storing access tokens in the browser.
 - **Local backup:** Export and import app settings as a JSON file. This is a manual file transfer, not cloud synchronization.
 
 ## Run locally

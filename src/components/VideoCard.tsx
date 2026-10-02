@@ -20,7 +20,11 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   return (
     <div className="group flex flex-col cursor-pointer select-none">
       {/* Thumbnail Container */}
-      <div
+      <a
+        href={youtubeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${video.title} on YouTube`}
         className="relative aspect-video w-full rounded-xl overflow-hidden bg-yt-surface mb-3 shadow-sm"
         onClick={() => onPlay(video)}
       >
@@ -50,7 +54,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
             <span>Watched</span>
           </div>
         )}
-      </div>
+      </a>
 
       {/* Meta & Info Row */}
       <div className="flex gap-3 items-start">
@@ -71,12 +75,16 @@ export const VideoCard: React.FC<VideoCardProps> = ({
         {/* Text Details */}
         <div className="flex-1 min-w-0">
           {/* Title */}
-          <h3
-            onClick={() => onPlay(video)}
-            className="text-sm font-semibold text-yt-text line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors"
-            title={video.title}
-          >
-            {video.title}
+          <h3 className="text-sm font-semibold text-yt-text line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors">
+            <a
+              href={youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => onPlay(video)}
+              title={video.title}
+            >
+              {video.title}
+            </a>
           </h3>
 
           {/* Channel Name & Favorite Toggle */}

@@ -1,7 +1,7 @@
 import { Channel, Video, UserProfile } from '../types';
 import { parseISODuration, formatDuration, formatRelativeTime } from '../utils/duration';
 
-// Cache for video durations to save API quota
+// Cache durations while refreshing live-stream metadata whenever the feed loads.
 const DURATION_CACHE_KEY = 'mytube_duration_cache_v1';
 
 function getDurationCache(): Record<string, number> {
@@ -31,7 +31,7 @@ declare global {
             scope: string;
             callback: (response: { access_token?: string; error?: string }) => void;
           }) => {
-            requestAccessToken: () => void;
+            requestAccessToken: (options?: { prompt?: string }) => void;
           };
         };
       };
@@ -46,7 +46,7 @@ export function initGoogleAuth(
   clientId: string,
   onSuccess: (accessToken: string) => void,
   onError: (error: string) => void
-): (() => void) | null {
+): ((prompt?: string) => void) | null {
   if (!window.google?.accounts?.oauth2) {
     console.warn('Google Identity Services script not yet loaded.');
     return null;
@@ -65,7 +65,7 @@ export function initGoogleAuth(
       },
     });
 
-    return () => client.requestAccessToken();
+    return (prompt) => client.requestAccessToken(prompt === undefined ? undefined : { prompt });
   } catch (e) {
     console.error('Error initializing Google Auth Client:', e);
     onError(String(e));
@@ -157,7 +157,7 @@ export async function fetchRecentVideosForChannels(
 ): Promise<Video[]> {
   const allVideos: Video[] = [];
   const durationCache = getDurationCache();
-  const uncachedVideoIds: string[] = [];
+  const videoIds: string[] = [];
 
   // Limit to active/non-muted channels
   const activeChannels = channels.filter(c => !c.isMuted);
@@ -190,9 +190,7 @@ export async function fetchRecentVideosForChannels(
         const snippet = item.snippet;
         const publishedAt = snippet.publishedAt || new Date().toISOString();
 
-        if (durationCache[videoId] === undefined) {
-          uncachedVideoIds.push(videoId);
-        }
+        videoIds.push(videoId);
 
         allVideos.push({
           id: videoId,
@@ -211,6 +209,7 @@ export async function fetchRecentVideosForChannels(
           publishedRelative: formatRelativeTime(publishedAt),
           viewCount: '',
           isWatched: false,
+          isLiveStream: false,
           isFavoriteChannel: channel.isFavorite,
         });
       }
@@ -219,29 +218,42 @@ export async function fetchRecentVideosForChannels(
     }
   }
 
-  // Batch fetch durations for uncached video IDs (up to 50 at a time)
-  if (uncachedVideoIds.length > 0) {
+  // Fetch current live-stream metadata as well as uncached durations.
+  if (videoIds.length > 0) {
     const chunkSize = 50;
-    for (let i = 0; i < uncachedVideoIds.length; i += chunkSize) {
-      const chunk = uncachedVideoIds.slice(i, i + chunkSize);
+    for (let i = 0; i < videoIds.length; i += chunkSize) {
+      const chunk = videoIds.slice(i, i + chunkSize);
       try {
         const url = new URL('https://www.googleapis.com/youtube/v3/videos');
-        url.searchParams.set('part', 'contentDetails,statistics');
+        url.searchParams.set('part', 'snippet,contentDetails,liveStreamingDetails');
         url.searchParams.set('id', chunk.join(','));
 
         const res = await fetch(url.toString(), {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        if (res.ok) {
-          const data = await res.json();
-          for (const item of data.items || []) {
-            const durationSec = parseISODuration(item.contentDetails?.duration || '');
-            durationCache[item.id] = durationSec;
+        if (!res.ok) {
+          throw new Error(`YouTube API error: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        for (const item of data.items || []) {
+          const duration = item.contentDetails?.duration;
+          if (duration) {
+            durationCache[item.id] = parseISODuration(duration);
+          }
+
+          const video = allVideos.find((entry) => entry.id === item.id);
+          if (video) {
+            video.isLiveStream =
+              item.snippet?.liveBroadcastContent === 'live' ||
+              item.snippet?.liveBroadcastContent === 'upcoming' ||
+              Boolean(item.liveStreamingDetails);
           }
         }
       } catch (e) {
         console.error('Error fetching video durations chunk:', e);
+        throw e;
       }
     }
 

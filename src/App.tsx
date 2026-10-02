@@ -1,9 +1,8 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { TimeFilterBar } from './components/TimeFilterBar';
 import { VideoGrid } from './components/VideoGrid';
-import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { TimeSliderModal } from './components/TimeSliderModal';
 import { ChannelManagerModal } from './components/ChannelManagerModal';
 import { SettingsModal } from './components/SettingsModal';
@@ -47,13 +46,15 @@ export const App: React.FC = () => {
   // Auth state
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const sessionRestoreAttempted = useRef(false);
 
   // Filters state
   const [filters, setFilters] = useState<FilterState>({
     maxDurationMinutes: null,
     minDurationMinutes: 0,
     onlyFavorites: false,
-    hideWatched: false,
+    hideWatched: true,
+    hideShortsAndLive: true,
     searchQuery: '',
     selectedChannelId: null,
     sortBy: 'newest',
@@ -65,7 +66,6 @@ export const App: React.FC = () => {
   const [isChannelManagerOpen, setIsChannelManagerOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isGoogleLoginOpen, setIsGoogleLoginOpen] = useState(false);
-  const [activeVideo, setActiveVideo] = useState<Video | null>(null);
 
   // Synchronize settings changes to localStorage
   const handleUpdateSettings = (newSettings: AppSettings) => {
@@ -84,7 +84,7 @@ export const App: React.FC = () => {
 
   // Google OAuth Login handler
   const handleLogin = useCallback(
-    (explicitClientId?: string) => {
+    (explicitClientId?: string, prompt?: string) => {
       const clientId =
         typeof explicitClientId === 'string' ? explicitClientId : settings.googleClientId;
       const effectiveClientId = (clientId || '').trim();
@@ -113,19 +113,64 @@ export const App: React.FC = () => {
           await loadGoogleData(token);
         },
         (err) => {
+          if (
+            prompt === '' &&
+            ['interaction_required', 'login_required', 'consent_required', 'account_selection_required', 'immediate_failed'].includes(err)
+          ) {
+            return;
+          }
           console.error('Google Auth Error:', err);
           alert(`Google sign-in failed: ${err}`);
         }
       );
 
       if (triggerAuth) {
-        triggerAuth();
+        triggerAuth(prompt);
       } else {
         alert('Google Identity Services is still loading. Please try again in a few seconds.');
       }
     },
     [settings]
   );
+
+  useEffect(() => {
+    if (
+      settings.dataSource !== 'google' ||
+      !settings.googleClientId ||
+      sessionRestoreAttempted.current
+    ) {
+      return;
+    }
+
+    const script = document.querySelector<HTMLScriptElement>(
+      'script[src="https://accounts.google.com/gsi/client"]'
+    );
+    if (!script) {
+      console.error('Google Identity Services script element was not found.');
+      return;
+    }
+
+    const restoreSession = () => {
+      if (sessionRestoreAttempted.current) return;
+      sessionRestoreAttempted.current = true;
+      handleLogin(undefined, '');
+    };
+    const handleScriptError = () => {
+      console.error('Failed to load Google Identity Services for session restore.');
+    };
+
+    if (window.google?.accounts?.oauth2) {
+      restoreSession();
+      return;
+    }
+
+    script.addEventListener('load', restoreSession, { once: true });
+    script.addEventListener('error', handleScriptError, { once: true });
+    return () => {
+      script.removeEventListener('load', restoreSession);
+      script.removeEventListener('error', handleScriptError);
+    };
+  }, [handleLogin, settings.dataSource, settings.googleClientId]);
 
   const handleLogout = () => {
     setAccessToken(null);
@@ -216,8 +261,6 @@ export const App: React.FC = () => {
   };
 
   const handlePlayVideo = (video: Video) => {
-    setActiveVideo(video);
-    // Automatically mark as watched when opened
     if (!settings.watchedVideoIds.includes(video.id)) {
       toggleWatched(video.id);
     }
@@ -270,6 +313,14 @@ export const App: React.FC = () => {
           return false;
         }
 
+        // Hide short-form videos (up to 3 minutes) and live streams by default.
+        if (
+          filters.hideShortsAndLive &&
+          (video.isLiveStream || (video.durationSeconds > 0 && video.durationSeconds <= 180))
+        ) {
+          return false;
+        }
+
         // Search query filter
         if (filters.searchQuery.trim()) {
           const q = filters.searchQuery.toLowerCase();
@@ -297,7 +348,8 @@ export const App: React.FC = () => {
       maxDurationMinutes: null,
       minDurationMinutes: 0,
       onlyFavorites: false,
-      hideWatched: false,
+      hideWatched: true,
+      hideShortsAndLive: true,
       searchQuery: '',
       selectedChannelId: null,
       sortBy: 'newest',
@@ -430,12 +482,6 @@ export const App: React.FC = () => {
         onSaveClientId={(id) => handleUpdateSettings({ ...settings, googleClientId: id })}
       />
 
-      <VideoPlayerModal
-        video={activeVideo}
-        onClose={() => setActiveVideo(null)}
-        onToggleFavoriteChannel={toggleFavoriteChannel}
-        onToggleWatched={toggleWatched}
-      />
     </div>
   );
 };

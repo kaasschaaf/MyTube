@@ -22,6 +22,7 @@ export interface Video {
   publishedRelative: string; // e.g. "3 hours ago"
   viewCount: string; // e.g. "450K views"
   isWatched: boolean;
+  isLiveStream?: boolean;
   isFavoriteChannel?: boolean;
 }
 
@@ -32,6 +33,7 @@ export interface FilterState {
   minDurationMinutes: number; // 0 default
   onlyFavorites: boolean;
   hideWatched: boolean;
+  hideShortsAndLive: boolean;
   searchQuery: string;
   selectedChannelId: string | null;
   sortBy: SortOption;
