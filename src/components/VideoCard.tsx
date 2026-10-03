@@ -4,14 +4,14 @@ import { Video } from '../types';
 
 interface VideoCardProps {
   video: Video;
-  onPlay: (video: Video) => void;
+  onMarkWatched: (videoId: string) => void;
   onToggleFavoriteChannel: (channelId: string) => void;
   onToggleWatched: (videoId: string) => void;
 }
 
 export const VideoCard: React.FC<VideoCardProps> = ({
   video,
-  onPlay,
+  onMarkWatched,
   onToggleFavoriteChannel,
   onToggleWatched,
 }) => {
@@ -26,7 +26,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
         rel="noopener noreferrer"
         aria-label={`Open ${video.title} on YouTube`}
         className="relative aspect-video w-full rounded-xl overflow-hidden bg-yt-surface mb-3 shadow-sm"
-        onClick={() => onPlay(video)}
+        onClick={() => onMarkWatched(video.id)}
       >
         <img
           src={video.thumbnail}
@@ -80,7 +80,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
               href={youtubeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => onPlay(video)}
+              onClick={() => onMarkWatched(video.id)}
               title={video.title}
             >
               {video.title}
@@ -124,7 +124,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
             href={youtubeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+            onClick={() => onMarkWatched(video.id)}
             title="Open in YouTube"
             className="p-1.5 rounded-full hover:bg-yt-pill text-yt-textSec hover:text-white transition"
           >

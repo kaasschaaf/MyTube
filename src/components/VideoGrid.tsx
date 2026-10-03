@@ -6,7 +6,7 @@ import { Film, RotateCcw } from 'lucide-react';
 interface VideoGridProps {
   videos: Video[];
   isLoading: boolean;
-  onPlay: (video: Video) => void;
+  onMarkWatched: (videoId: string) => void;
   onToggleFavoriteChannel: (channelId: string) => void;
   onToggleWatched: (videoId: string) => void;
   onResetFilters: () => void;
@@ -15,7 +15,7 @@ interface VideoGridProps {
 export const VideoGrid: React.FC<VideoGridProps> = ({
   videos,
   isLoading,
-  onPlay,
+  onMarkWatched,
   onToggleFavoriteChannel,
   onToggleWatched,
   onResetFilters,
@@ -68,7 +68,7 @@ export const VideoGrid: React.FC<VideoGridProps> = ({
         <VideoCard
           key={video.id}
           video={video}
-          onPlay={onPlay}
+          onMarkWatched={onMarkWatched}
           onToggleFavoriteChannel={onToggleFavoriteChannel}
           onToggleWatched={onToggleWatched}
         />

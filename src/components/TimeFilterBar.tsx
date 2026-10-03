@@ -101,7 +101,7 @@ export const TimeFilterBar: React.FC<TimeFilterBarProps> = ({
             ? 'bg-yt-pillActive text-yt-bg'
             : 'bg-yt-pill hover:bg-yt-pillHover text-yt-text'
         }`}
-        title="Hide videos already opened or watched"
+        title="Hide videos marked as watched, including videos you open from MyTube"
       >
         <EyeOff className="w-3.5 h-3.5" />
         <span>Unwatched</span>

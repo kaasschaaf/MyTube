@@ -261,10 +261,13 @@ export const App: React.FC = () => {
     });
   };
 
-  const handlePlayVideo = (video: Video) => {
-    if (!settings.watchedVideoIds.includes(video.id)) {
-      toggleWatched(video.id);
-    }
+  const markWatched = (videoId: string) => {
+    if (settings.watchedVideoIds.includes(videoId)) return;
+
+    handleUpdateSettings({
+      ...settings,
+      watchedVideoIds: [...settings.watchedVideoIds, videoId],
+    });
   };
 
   // Filter & Sort Logic
@@ -430,7 +433,7 @@ export const App: React.FC = () => {
           <VideoGrid
             videos={processedVideos}
             isLoading={isRefreshing}
-            onPlay={handlePlayVideo}
+            onMarkWatched={markWatched}
             onToggleFavoriteChannel={toggleFavoriteChannel}
             onToggleWatched={toggleWatched}
             onResetFilters={handleResetFilters}
